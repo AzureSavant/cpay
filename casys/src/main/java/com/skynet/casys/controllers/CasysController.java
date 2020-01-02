@@ -1,17 +1,18 @@
 package com.skynet.casys.controllers;
 
-import com.skynet.casys.models.Casys;
-import com.skynet.casys.models.Transaction;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.skynet.casys.models.CasysProduct;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class CasysController {
 
-    @RequestMapping("/casys")
-    public Casys transactionMethod(@RequestParam(value="id", defaultValue="1000") Integer id,
-                                   @RequestParam(value = "product",defaultValue ="product") String product){
-        return new Casys(id,product);
+    @RequestMapping("/casys/{product}")
+    @ResponseBody
+    public CasysProduct test(@PathVariable("product") String product,Model model){
+        model.addAttribute("product",product);
+        return  new CasysProduct(product); //CasysProduct casysProduct=new CasysProduct(product);
+
     }
+
 }

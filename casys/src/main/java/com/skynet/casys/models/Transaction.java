@@ -1,6 +1,6 @@
 package com.skynet.casys.models;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 
 import javax.persistence.*;
 
@@ -11,7 +11,7 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int id;
 
-    private String productName;
+    private String product;
 
     @OneToOne(cascade = CascadeType.ALL)
     private  CreditCard creditCard;
@@ -22,7 +22,7 @@ public class Transaction {
     public String toString() {
         return "Transaction{" +
                 "id=" + id +
-                ", product='" + productName + '\'' +
+                ", product='" + product + '\'' +
                 ", creditCard=" + creditCard +
                 ", cost=" + cost +
                 '}';
@@ -38,11 +38,11 @@ public class Transaction {
 
     public String getProduct() {
 
-        return productName;
+        return product;
     }
 
     public void setProduct(String product) {
-        this.productName = product;
+        this.product = product;
     }
 
     public CreditCard getCreditCard() {
@@ -64,7 +64,7 @@ public class Transaction {
 
     public Transaction(String product, CreditCard creditCard, double cost) {
 
-        this.productName = product;
+        this.product = product;
         this.creditCard = creditCard;
         this.cost = cost;
     }
