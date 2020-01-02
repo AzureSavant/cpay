@@ -1,5 +1,7 @@
 package com.skynet.casys.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 
@@ -22,6 +24,8 @@ public class CreditCard {
     private int expirationYear;
 
     private int securityCode;
+
+
 
     public int getId() {
         return id;

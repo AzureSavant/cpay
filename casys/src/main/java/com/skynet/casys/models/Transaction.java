@@ -1,5 +1,7 @@
 package com.skynet.casys.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity
@@ -58,6 +60,7 @@ public class Transaction {
     public void setCost(double cost) {
         this.cost = cost;
     }
+
 
     public Transaction(String product, CreditCard creditCard, double cost) {
 

@@ -1,5 +1,7 @@
 package com.skynet.casys.models;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import javax.persistence.*;
 
 @Entity
@@ -18,6 +20,7 @@ public class Client {
 
     @OneToOne(cascade = CascadeType.ALL)
     private CreditCard creditCard;
+
 
     public Client(String name, String eMail, String phoneNumber, CreditCard creditCard) {
         this.name = name;
