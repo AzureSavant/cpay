@@ -18,9 +18,12 @@
 <div class="container">
     <h1>Successful Payment</h1>
     <p th:text="${Message}"> </p>
+
     <form action="/redirectshop">
+        <input type="hidden" th:value="${baseUrl}" name="baseUrl" id="baseUrl" required="true"><br>
         <p>Back to shop</p>
         <button type="submit" class="btn btn-secondary">Shop</button>
+
     </form>
 </div>
 </body>

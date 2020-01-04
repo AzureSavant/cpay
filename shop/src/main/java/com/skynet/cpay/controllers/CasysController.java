@@ -50,6 +50,6 @@ public class CasysController {
 
          final String baseUrl=request.getRequestURL().toString();
         return "redirect:http://localhost:8081/casys/"+
-                URLEncoder.encode(product, "UTF-8")+"?baseUrl="+URLEncoder.encode(baseUrl,"UTF-8")+"&price="+price;
+                    URLEncoder.encode(product, "UTF-8")+"?baseUrl="+URLEncoder.encode(baseUrl,"UTF-8")+"&price="+price;
     }
 }

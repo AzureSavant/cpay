@@ -27,21 +27,24 @@ public class TransactionController {
         this.transactionService = transactionService;
     }
 
-    @RequestMapping(value = "casys/transaction",method = RequestMethod.POST, params = "confirm")
+    @RequestMapping(value = "/casys/transaction",method = RequestMethod.POST, params = "confirm")
     public String transaction(Model model,
-                              @RequestParam("product") String product,
                               @RequestParam("name") String name,
                               @RequestParam("creditCardNumber") String creditCardNumber,
                               @RequestParam("creditCardType") String creditCardType,
                               @RequestParam("expirationMonth") int expirationMonth,
                               @RequestParam("expirationYear") int expirationYear,
                               @RequestParam("securityCode") String securityCode,
+                              @RequestParam("Sproduct") String product,
                               @RequestParam("price")Double price,
                               @RequestParam("baseUrl") String baseUrl){
 
         String errorMessage="";
         if(name.isEmpty() || securityCode.isEmpty() || creditCardNumber.isEmpty()){
             model.addAttribute("product ",product);
+            model.addAttribute("Sproduct ",product);
+            model.addAttribute("price",price);
+            model.addAttribute("baseUrl",baseUrl);
             model.addAttribute("errorMessage", "All fields are required");
             return "redirect:http://localhost:8081/casys";
         }
@@ -88,6 +91,7 @@ public class TransactionController {
 
             transaction = new Transaction(product, creditCard, price);
             transactionService.saveTransaction(transaction);
+            model.addAttribute("baseUrl",baseUrl);
             model.addAttribute("Message", "Transaction: "+ transaction.toString()+"To the shop:");
             return "success.html";
         }

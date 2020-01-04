@@ -30,7 +30,7 @@
     <br>
     <br>
     <div>
-        <form action="/transaction" method="post">
+        <form action="/casys/transaction" method="post">
             <input placeholder="Credit Card Number" type="text" name="creditCardNumber"><br>
             <input placeholder="Name" type="text" name="name"><br>
             <select name="creditCardType">
@@ -68,7 +68,8 @@
                 <option>2030</option>
             </select><br>
             <input placeholder="Security Code" type="number" name="securityCode"><br>
-            <input type="hidden" th:value="${price}" name="product" id="product" required="true"><br>
+            <input type="hidden" th:value="${Sproduct}" name="Sproduct" id="Sproduct" required="true"><br>
+            <input type="hidden" th:value="${price}" name="price" id="price" required="true"><br>
             <input type="hidden" th:value="${baseUrl}" name="baseUrl" id="baseUrl" required="true"><br>
             <button class="btn btn-secondary" type="submit" name="confirm" value="confirm" > Confirm</button>
             <button class="btn btn-secondary" type="submit" name="cancel" value="cancel" >Cancel</button>
