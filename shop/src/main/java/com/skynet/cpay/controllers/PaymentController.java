@@ -15,7 +15,7 @@ public class PaymentController {
     private ProductService productService;
     public PaymentController(ProductService productService){ this.productService=productService;}
 
-    @RequestMapping(value = "/payment", method = RequestMethod.POST)
+    @RequestMapping(value = "/shop/payment", method = RequestMethod.POST)
     public String payment(
             Model model,
             @RequestParam("id") Integer id
@@ -25,7 +25,7 @@ public class PaymentController {
         model.addAttribute("price", product.getPrice());
         model.addAttribute("manufacturer", product.getManufacturer());
         model.addAttribute("description", product.getDescription());
-        model.addAttribute("id", id);
+        model.addAttribute("sendPrice", product.getPrice());
         model.addAttribute("product",product.toString());
 
         return "payment.html";

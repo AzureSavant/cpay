@@ -27,7 +27,7 @@
                         <span  th:text="${p.manufacturer}"></span><br>
                         <label>Description:</label>
                         <span  th:text="${p.description}"></span><br>
-                    <form method="POST" action="/payment">
+                    <form method="POST" action="/shop/payment">
                         <input type="hidden"  th:value="${p.id}" name="id" id="id" required="true"/>
                         <button class="btn btn-secondary" type="submit" name="buy" value="buy"> Buy </button>
                     </form>

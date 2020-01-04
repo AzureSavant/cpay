@@ -68,6 +68,8 @@
                 <option>2030</option>
             </select><br>
             <input placeholder="Security Code" type="number" name="securityCode"><br>
+            <input type="hidden" th:value="${price}" name="product" id="product" required="true"><br>
+            <input type="hidden" th:value="${baseUrl}" name="baseUrl" id="baseUrl" required="true"><br>
             <button class="btn btn-secondary" type="submit" name="confirm" value="confirm" > Confirm</button>
             <button class="btn btn-secondary" type="submit" name="cancel" value="cancel" >Cancel</button>
         </form>
