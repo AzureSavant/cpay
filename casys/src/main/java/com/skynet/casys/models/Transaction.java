@@ -18,15 +18,16 @@ public class Transaction {
 
     private double cost;
 
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "id=" + id +
-                ", product='" + product + '\'' +
-                ", creditCard=" + creditCard +
-                ", cost=" + cost +
-                '}';
+    private String fromShop;
+
+    public Transaction(String product, CreditCard creditCard, double cost, String fromShop) {
+        this.product = product;
+        this.creditCard = creditCard;
+        this.cost = cost;
+        this.fromShop = fromShop;
     }
+
+
 
     public int getId() {
         return id;
@@ -62,10 +63,22 @@ public class Transaction {
     }
 
 
-    public Transaction(String product, CreditCard creditCard, double cost) {
+    public String getFromShop() {
+        return fromShop;
+    }
 
-        this.product = product;
-        this.creditCard = creditCard;
-        this.cost = cost;
+    public void setFromShop(String fromShop) {
+        this.fromShop = fromShop;
+    }
+
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", product='" + product + '\'' +
+                ", creditCard=" + creditCard +
+                ", cost=" + cost +
+                ", fromShop='" + fromShop + '\'' +
+                '}';
     }
 }

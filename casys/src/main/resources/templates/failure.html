@@ -11,18 +11,16 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-    <title>Success Page</title>
+    <title>Failure Page</title>
 </head>
 
 <body>
 <div class="container">
-    <h1>Successful Payment</h1>
-    <p th:text="${Message}"> </p>
-
-    <form action="/redirectshop" method="post">
-        <input type="hidden" th:value="${baseUrl}" name="baseUrl" id="baseUrl" required="true"><br>
-        <p>Back to shop</p>
-        <button type="submit" class="btn btn-secondary">Shop</button>
+    <h1>Failed Payment</h1>
+    <p th:text="${errorMessage}"> </p>
+    <form action="/casys/retry" method="post">
+        <input  type="hidden" th:value="${baseUrl}" name="baseUrl" id="baseUrl" required="true"><br>
+        <button type="submit" class="btn btn-secondary">Try Again</button>
 
     </form>
 </div>

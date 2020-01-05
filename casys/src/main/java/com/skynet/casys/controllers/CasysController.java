@@ -20,16 +20,28 @@ public class CasysController {
     @RequestMapping("/casys/{product}")
     public String casys(@PathVariable("product") String product,
                         @RequestParam("baseUrl") String baseURL,
-                        @RequestParam("price") Integer price,
+                        @RequestParam("price") Double price,
                         Model model) throws UnsupportedEncodingException {
         model.addAttribute("product",URLDecoder.decode(product,"UTF-8"));
         model.addAttribute("price",price);
+        model.addAttribute("Sproduct",product);
         String baseUrl= URLDecoder.decode(baseURL,"UTF-8");
         model.addAttribute("baseUrl",baseUrl);
 
         return "casys.html";
     }
 
+    @RequestMapping("/redirectshop")
+    public String redirectShop(@RequestParam("baseUrl") String baseUrl){
+
+        return "redirect:"+baseUrl;
+    }
+
+    @RequestMapping("/casys/retry")
+    public String redirectFail(@RequestParam("baseUrl") String baseUrl) {
+
+        return "redirect:http://localhost:8081/casys/"+baseUrl;
+    }
 
 
 

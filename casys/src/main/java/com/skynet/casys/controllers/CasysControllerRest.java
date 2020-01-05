@@ -9,9 +9,9 @@ public class CasysControllerRest {
 
     @RequestMapping("/test/{product}")
     @ResponseBody
-    public CasysProduct test(@PathVariable("product") String product,Model model){
+    public CasysProduct test(@PathVariable("product") String product){
 
-        return  new CasysProduct(product); //CasysProduct casysProduct=new CasysProduct(product);
+        return  new CasysProduct(product);
 
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -37,22 +38,19 @@ public class TransactionController {
                               @RequestParam("securityCode") String securityCode,
                               @RequestParam("Sproduct") String product,
                               @RequestParam("price")Double price,
-                              @RequestParam("baseUrl") String baseUrl){
+                              @RequestParam("baseUrl") String baseUrl,
+                              HttpServletRequest request){
 
         String errorMessage="";
-        if(name.isEmpty() || securityCode.isEmpty() || creditCardNumber.isEmpty()){
-            model.addAttribute("product ",product);
-            model.addAttribute("Sproduct ",product);
-            model.addAttribute("price",price);
-            model.addAttribute("baseUrl",baseUrl);
-            model.addAttribute("errorMessage", "All fields are required");
-            return "redirect:http://localhost:8081/casys";
-        }
+
         int securityCodeInteger = Integer.parseInt(securityCode);
         boolean isValid=true;
         CreditCard creditCard = creditCardRepository.findByCreditCardNumber(creditCardNumber);
 
         if (creditCard == null) {
+            final String currUrl= product+"?baseUrl="+baseUrl+"&price="+price;
+            System.out.println(currUrl);
+            model.addAttribute("baseUrl",currUrl);
             model.addAttribute("errorMessage", "Invalid credit card number! Credit Card does not exist.");
             return "failure.html";
         }
@@ -89,15 +87,18 @@ public class TransactionController {
 
         if (isValid){
 
-            transaction = new Transaction(product, creditCard, price);
+            transaction = new Transaction(product, creditCard, price,baseUrl);
             transactionService.saveTransaction(transaction);
             model.addAttribute("baseUrl",baseUrl);
-            model.addAttribute("Message", "Transaction: "+ transaction.toString()+"To the shop:");
+            model.addAttribute("Message", "Transaction: "+ transaction.toString());
             return "success.html";
         }
-        else
-            model.addAttribute("errorMessage",errorMessage);
-        return "failure.html";
+        else {
+            final String currUrl= product+"?baseUrl="+baseUrl+"&price="+price;
+            model.addAttribute("baseUrl",currUrl);      //model.addAttrivute not working ???????????????????
+            model.addAttribute("errorMessage", errorMessage); //this works
+            return "failure.html";
+        }
     }
 
     @RequestMapping(value = "casys/transaction",method = RequestMethod.POST,params = "cancel")
