@@ -22,7 +22,8 @@ public class CasysController {
                         @RequestParam("baseUrl") String baseURL,
                         @RequestParam("price") Double price,
                         Model model) throws UnsupportedEncodingException {
-        model.addAttribute("product",URLDecoder.decode(product,"UTF-8"));
+        String decodedprod=URLDecoder.decode(product,"UTF-8");
+        model.addAttribute("product",decodedprod);
         model.addAttribute("price",price);
         model.addAttribute("Sproduct",product);
         String baseUrl= URLDecoder.decode(baseURL,"UTF-8");
