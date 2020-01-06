@@ -98,7 +98,7 @@ public class TransactionController {
             transactionService.saveTransaction(transaction);
             String dataToSend= transaction.getProduct()+" From:"
                     +transaction.getCreditCard().getName()+" Cost:"+transaction.getCost();
-            sendTransactionInfo(dataToSend, shopClient.getShopLinkRef());//TODO: implement method SendTransactionInfo()
+            sendTransactionInfo(dataToSend, shopClient.getShopLinkRef());
             model.addAttribute("baseUrl",baseUrl);
             model.addAttribute("Message", "Transaction: "+ transaction.toString());
             return "success.html";
@@ -119,8 +119,7 @@ public class TransactionController {
     private  void sendTransactionInfo(String info,String url){
         RestTemplate template= new RestTemplate();
         template.postForLocation(url,info);
-    }                                                   //TODO: implement method to send to
-                                                        // TODO:SHOP_LINK_REFF with information on transaction
+    }                                                   
 
 
 }
