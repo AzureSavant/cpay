@@ -15,27 +15,6 @@ import java.net.URLEncoder;
 @Controller
 public class CasysController {
 
-   /* @RequestMapping(value = "/casys", method = RequestMethod.POST,params = "checkout")
-    public String casys(
-            Model model,
-            @RequestParam("product") String product,
-            @RequestParam("id") Integer id){
-
-        model.addAttribute("product", product);
-        model.addAttribute("id", id);
-        return "casys.html";
-    }
-    @RequestMapping(value = "/casys", method = RequestMethod.GET)
-    public String onRedirect(
-            Model model,
-            @RequestParam("product") String product,
-            @RequestParam("id") Integer id){
-
-        model.addAttribute("product", product);
-        model.addAttribute("id", id);
-        return "casys.html";
-    }
-*/
     @RequestMapping(value = "/shop/", method = RequestMethod.POST,params = "back")
     public  String back(){
         return "redirect:/shop";

@@ -1,8 +1,10 @@
 package com.skynet.casys.controllers;
 
+import com.skynet.casys.models.CasysShopClient;
 import com.skynet.casys.models.CreditCard;
 import com.skynet.casys.models.Transaction;
 import com.skynet.casys.repositories.CreditCardRepository;
+import com.skynet.casys.service.impl.CasysShopClientServiceImpl;
 import com.skynet.casys.service.impl.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import javax.servlet.http.HttpServletRequest;
+import java.net.URLDecoder;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -21,11 +25,14 @@ public class TransactionController {
     private final CreditCardRepository creditCardRepository;
     private Transaction transaction;
     private final TransactionServiceImpl transactionService;
+    private CasysShopClientServiceImpl casysShopClientService;
 
     @Autowired
-    public TransactionController(CreditCardRepository creditCardRepository, TransactionServiceImpl transactionService) {
+    public TransactionController(CreditCardRepository creditCardRepository, TransactionServiceImpl transactionService,
+                                 CasysShopClientServiceImpl casysShopClientService) {
         this.creditCardRepository = creditCardRepository;
         this.transactionService = transactionService;
+        this.casysShopClientService = casysShopClientService;
     }
 
     @RequestMapping(value = "/casys/transaction",method = RequestMethod.POST, params = "confirm")
@@ -49,7 +56,6 @@ public class TransactionController {
 
         if (creditCard == null) {
             final String currUrl= product+"?baseUrl="+baseUrl+"&price="+price;
-            System.out.println(currUrl);
             model.addAttribute("baseUrl",currUrl);
             model.addAttribute("errorMessage", "Invalid credit card number! Credit Card does not exist.");
             return "failure.html";
@@ -87,16 +93,20 @@ public class TransactionController {
 
         if (isValid){
 
+            CasysShopClient shopClient= casysShopClientService.getByShopLinkLike(baseUrl);
             transaction = new Transaction(product, creditCard, price,baseUrl);
             transactionService.saveTransaction(transaction);
+            String dataToSend= transaction.getProduct()+" From:"
+                    +transaction.getCreditCard().getName()+" Cost:"+transaction.getCost();
+            sendTransactionInfo(dataToSend, shopClient.getShopLinkRef());//TODO: implement method SendTransactionInfo()
             model.addAttribute("baseUrl",baseUrl);
             model.addAttribute("Message", "Transaction: "+ transaction.toString());
             return "success.html";
         }
         else {
             final String currUrl= product+"?baseUrl="+baseUrl+"&price="+price;
-            model.addAttribute("baseUrl",currUrl);      //model.addAttrivute not working ???????????????????
-            model.addAttribute("errorMessage", errorMessage); //this works
+            model.addAttribute("baseUrl",currUrl);
+            model.addAttribute("errorMessage", errorMessage);
             return "failure.html";
         }
     }
@@ -105,6 +115,12 @@ public class TransactionController {
     public String cancelTransaction(@RequestParam("baseUrl")String baseUrl){
         return "redirect:"+ baseUrl;
     }
+
+    private  void sendTransactionInfo(String info,String url){
+        RestTemplate template= new RestTemplate();
+        template.postForLocation(url,info);
+    }                                                   //TODO: implement method to send to
+                                                        // TODO:SHOP_LINK_REFF with information on transaction
 
 
 }

@@ -19,6 +19,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Product getProductByNameContains(String product) {
+        return  this.ProductRepository.getProductByNameContains(product);
+    }
+
+    @Override
     public List<Product> getAllProducts() {
         return ProductRepository.findAll();
     }

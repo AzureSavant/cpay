@@ -11,22 +11,26 @@ public class Transaction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private Product product;
+    private String TransactionCasys;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    private CreditCard creditCard;
-
-    private double cost;
-
-    public Transaction(Product product, CreditCard creditCard, double cost) {
-        this.product = product;
-        this.creditCard = creditCard;
-        this.cost = cost;
+    @Override
+    public String toString() {
+        return "Transaction{" +
+                "id=" + id +
+                ", Transaction='" + TransactionCasys + '\'' +
+                '}';
     }
 
+    public String getTransactionCasys() {
+        return TransactionCasys;
+    }
+
+    public void setTransactionCasys(String transaction) {
+        TransactionCasys = transaction;
+    }
 
     public int getId() {
+
         return id;
     }
 
@@ -34,37 +38,12 @@ public class Transaction {
         this.id = id;
     }
 
-    public Product getProduct() {
-        return product;
+    public Transaction(String transaction) {
+
+        TransactionCasys = transaction;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
-    }
+    public Transaction() {
 
-    public CreditCard getCreditCard() {
-        return creditCard;
-    }
-
-    public void setCreditCard(CreditCard creditCard) {
-        this.creditCard = creditCard;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cost) {
-        this.cost = cost;
-    }
-
-
-    @Override
-    public String toString() {
-        return "Transaction{" +
-                "product{" + product.toString()+"} " +
-                ", from{" + creditCard.toString()+"} " +
-                ", cost=" + cost +
-                '}';
     }
 }
